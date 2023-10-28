@@ -1,0 +1,1415 @@
+openapi: 3.0.3
+info:
+  title: P-j - OpenAPI 3.0
+  contact:
+    email: oppoppzxzopp@gmail
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: http://localhost:9000
+  # - url: https://api.asp-matrix.cloud
+tags:
+- name: owner
+  description: เจ้าของร้าน
+- name: employee
+  description: พนักงาน  
+- name: typeproduct
+  description: ข้อมูลประเภทสินค้า
+- name: product
+  description: สินค้า
+- name: stockproduct
+  description: เก็บข้อมูลประเภทสินค้า
+- name: ordering
+  description: ข้อมูลการสั่งซื้อ
+- name: orderdetails
+  description: รายระเอียดการสั่งซื้อ
+- name: payment
+  description: ข้อมูลการจ่ายเงิน
+- name: paymentqr
+paths:
+
+  /owner:
+    get:
+      tags:
+        - owner
+      summary: ดูแบบสำรวจโดยแอดมิน
+      operationId: getAllwoner
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                       $ref: "#/components/schemas/Owner"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Owner
+      
+    post:
+      tags:
+        - owner
+      summary: แบบสำรวจ
+      operationId: postwoner
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/Owner"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Owner
+  /owner/{id}:
+    get:
+      tags:
+        - owner
+      summary: ดูผลสำรวจรายบุคคลโดยแอดมิน
+      operationId: getwonerById
+      parameters:
+        - name: id
+          in: path
+          description: survey user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Owner"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Owner
+      
+    put:
+      tags:
+        - owner
+      summary: แก้ไขคำตอบ
+      operationId: updatewonerById
+      parameters:
+        - name: id
+          in: path
+          description: ID ของคำตอบที่ต้องการแก้ไข
+          required: true
+          schema:
+            type: string
+          example: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Owner"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Owner"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Owner
+      
+    
+    delete:
+      tags:
+        - owner
+      summary: ลบแบบสำรวจโดยแอดมิน
+      operationId: deletewonerById
+      parameters:
+        - name: id
+          in: path
+          description: survey ID
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Owner
+  
+  /owner/login:
+    post:
+      tags:
+        - owner
+      summary: แบบสำรวจ
+      operationId: loginowner
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/Owner"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Owner
+  
+  /employee:
+    get:
+      tags:
+        - employee
+      summary: ดูแบบสำรวจโดยแอดมิน
+      operationId: getAllemployee
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                       $ref: "#/components/schemas/Employee"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Employee
+      
+    post:
+      tags:
+        - employee
+      summary: แบบสำรวจ
+      operationId: postemployee
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/Employee"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Employee
+  /employee/{id}:
+    get:
+      tags:
+        - employee
+      summary: ดูผลสำรวจรายบุคคลโดยแอดมิน
+      operationId: getemployeerById
+      parameters:
+        - name: id
+          in: path
+          description: survey user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Employee"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Employee
+      
+    put:
+      tags:
+        - employee
+      summary: แก้ไขคำตอบ
+      operationId: updateemployeeById
+      parameters:
+        - name: id
+          in: path
+          description: ID ของคำตอบที่ต้องการแก้ไข
+          required: true
+          schema:
+            type: string
+          example: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Employee"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Employee"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Employee
+      
+    
+    delete:
+      tags:
+        - employee
+      summary: ลบแบบสำรวจโดยแอดมิน
+      operationId: deleteemployeeById
+      parameters:
+        - name: id
+          in: path
+          description: survey ID
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Employee
+
+  /paymentqr:
+    post:
+      tags:
+        - paymentqr
+      summary: แบบสำรวจ
+      operationId: postpaymentqr
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/Typeproduct"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Paymentqr
+
+  /typeproduct:
+    get:
+      tags:
+        - typeproduct
+      summary: ดูแบบสำรวจโดยแอดมิน
+      operationId: getAlltypeproduct
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                       $ref: "#/components/schemas/Typeproduct"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Typeproduct
+      
+    post:
+      tags:
+        - typeproduct
+      summary: แบบสำรวจ
+      operationId: posttypeproduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/Typeproduct"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Typeproduct
+  /typeproduct/{id}:
+    get:
+      tags:
+        - typeproduct
+      summary: ดูผลสำรวจรายบุคคลโดยแอดมิน
+      operationId: getetypeproductById
+      parameters:
+        - name: id
+          in: path
+          description: survey user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Typeproduct"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Typeproduct
+      
+    put:
+      tags:
+        - typeproduct
+      summary: แก้ไขคำตอบ
+      operationId: updattypeproductById
+      parameters:
+        - name: id
+          in: path
+          description: ID ของคำตอบที่ต้องการแก้ไข
+          required: true
+          schema:
+            type: string
+          example: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Typeproduct"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Typeproduct"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Typeproduct
+      
+    
+    delete:
+      tags:
+        - typeproduct
+      summary: ลบแบบสำรวจโดยแอดมิน
+      operationId: delettypeproducteById
+      parameters:
+        - name: id
+          in: path
+          description: survey ID
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Typeproduct
+      
+  /product:
+    get:
+      tags:
+        - product
+      summary: ดูแบบสำรวจโดยแอดมิน
+      operationId: getAllproduct
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                       $ref: "#/components/schemas/Product"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Product
+      
+    post:
+      tags:
+        - product
+      summary: แบบสำรวจ
+      operationId: postproduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/Product"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Product
+  /product/{id}:
+    get:
+      tags:
+        - product
+      summary: ดูผลสำรวจรายบุคคลโดยแอดมิน
+      operationId: geteproductById
+      parameters:
+        - name: id
+          in: path
+          description: survey user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Product"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Product
+      
+    put:
+      tags:
+        - product
+      summary: แก้ไขคำตอบ
+      operationId: updatproducttById
+      parameters:
+        - name: id
+          in: path
+          description: ID ของคำตอบที่ต้องการแก้ไข
+          required: true
+          schema:
+            type: string
+          example: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Product"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Product
+      
+    
+    delete:
+      tags:
+        - product
+      summary: ลบแบบสำรวจโดยแอดมิน
+      operationId: deletproductById
+      parameters:
+        - name: id
+          in: path
+          description: survey ID
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Product
+  
+  /stockproduct:
+    get:
+      tags:
+        - stockproduct
+      summary: ดูแบบสำรวจโดยแอดมิน
+      operationId: getAllstockproduct
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                       $ref: "#/components/schemas/StockProduct"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: StockProduct
+      
+    post:
+      tags:
+        - stockproduct
+      summary: แบบสำรวจ
+      operationId: poststockproduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/StockProduct"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: StockProduct
+  /stockproduct/{id}:
+    get:
+      tags:
+        - stockproduct
+      summary: ดูผลสำรวจรายบุคคลโดยแอดมิน
+      operationId: getstockproductById
+      parameters:
+        - name: id
+          in: path
+          description: survey user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/StockProduct"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: StockProduct
+      
+    put:
+      tags:
+        - stockproduct
+      summary: แก้ไขคำตอบ
+      operationId: updatstockproductById
+      parameters:
+        - name: id
+          in: path
+          description: ID ของคำตอบที่ต้องการแก้ไข
+          required: true
+          schema:
+            type: string
+          example: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StockProduct"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/StockProduct"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: StockProduct
+      
+    
+    delete:
+      tags:
+        - stockproduct
+      summary: ลบแบบสำรวจโดยแอดมิน
+      operationId: deletstockproductById
+      parameters:
+        - name: id
+          in: path
+          description: survey ID
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: StockProduct
+  
+  /ordering:
+    get:
+      tags:
+        - ordering
+      summary: ดูแบบสำรวจโดยแอดมิน
+      operationId: getAllorderingduct
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                       $ref: "#/components/schemas/Ordering"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Ordering
+      
+    post:
+      tags:
+        - ordering
+      summary: แบบสำรวจ
+      operationId: postordering
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/Ordering"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Ordering
+  /ordering/{id}:
+    get:
+      tags:
+        - ordering
+      summary: ดูผลสำรวจรายบุคคลโดยแอดมิน
+      operationId: getorderingtById
+      parameters:
+        - name: id
+          in: path
+          description: survey user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Ordering"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Ordering
+      
+    put:
+      tags:
+        - ordering
+      summary: แก้ไขคำตอบ
+      operationId: updatorderingById
+      parameters:
+        - name: id
+          in: path
+          description: ID ของคำตอบที่ต้องการแก้ไข
+          required: true
+          schema:
+            type: string
+          example: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Ordering"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Ordering"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Ordering
+      
+    
+    delete:
+      tags:
+        - ordering
+      summary: ลบแบบสำรวจโดยแอดมิน
+      operationId: deletorderingById
+      parameters:
+        - name: id
+          in: path
+          description: survey ID
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Ordering
+
+  /orderdetails:
+    get:
+      tags:
+        - orderdetails
+      summary: ดูแบบสำรวจโดยแอดมิน
+      operationId: getAllorderdetails
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                       $ref: "#/components/schemas/Orderdetails"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Orderdetails
+      
+    post:
+      tags:
+        - orderdetails
+      summary: แบบสำรวจ
+      operationId: postorderdetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/Orderdetails"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Orderdetails
+  /orderdetails/{id}:
+    get:
+      tags:
+        - orderdetails
+      summary: ดูผลสำรวจรายบุคคลโดยแอดมิน
+      operationId: getorderdetailsById
+      parameters:
+        - name: id
+          in: path
+          description: survey user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Orderdetails"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Orderdetails
+      
+    put:
+      tags:
+        - orderdetails
+      summary: แก้ไขคำตอบ
+      operationId: updatorderdetailsById
+      parameters:
+        - name: id
+          in: path
+          description: ID ของคำตอบที่ต้องการแก้ไข
+          required: true
+          schema:
+            type: string
+          example: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Orderdetails"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Orderdetails"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Orderdetails
+      
+    
+    delete:
+      tags:
+        - orderdetails
+      summary: ลบแบบสำรวจโดยแอดมิน
+      operationId: deletorderdetailsById
+      parameters:
+        - name: id
+          in: path
+          description: survey ID
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Orderdetails
+
+  /payment:
+    get:
+      tags:
+        - payment
+      summary: ดูแบบสำรวจโดยแอดมิน
+      operationId: getAllpayment
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                       $ref: "#/components/schemas/Payment"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Payment
+      
+    post:
+      tags:
+        - payment
+      summary: แบบสำรวจ
+      operationId: postpayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/Payment"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Payment
+  /payment/{id}:
+    get:
+      tags:
+        - payment
+      summary: ดูผลสำรวจรายบุคคลโดยแอดมิน
+      operationId: getpaymentById
+      parameters:
+        - name: id
+          in: path
+          description: survey user id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Payment"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Payment
+      
+    put:
+      tags:
+        - payment
+      summary: แก้ไขคำตอบ
+      operationId: updatpaymentById
+      parameters:
+        - name: id
+          in: path
+          description: ID ของคำตอบที่ต้องการแก้ไข
+          required: true
+          schema:
+            type: string
+          example: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Payment"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: "#/components/schemas/Payment"
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Payment
+      
+    
+    delete:
+      tags:
+        - payment
+      summary: ลบแบบสำรวจโดยแอดมิน
+      operationId: deletpaymentById
+      parameters:
+        - name: id
+          in: path
+          description: survey ID
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  # data:
+                  #   $ref: "#/components/schemas/Survey_post"
+        "406":
+          description: Invalid input
+      x-swagger-router-controller: Payment
+  
+  
+components:
+  securitySchemes:
+      bearerAuth:            # arbitrary name for the security scheme
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+  schemas:
+  
+    Owner:
+      type: object
+      properties:
+        name:
+          type: string
+        lastname:
+          type: string
+        image:
+          type: string
+        phone:
+          type: string
+        user:
+          type: string
+        password:
+          type: string
+
+    Employee:
+      type: object
+      properties:
+        employeeid:
+          type: string
+        name:
+          type: string
+        lastname:
+          type: string
+        image:  
+          type: string
+        phone:
+          type: string
+        user:
+          type: string
+        password:
+          type: string
+          
+    Typeproduct:
+      type: object
+      properties:
+        typeid:
+          type: string
+        name:
+          type: string
+    
+    Product:
+      type: object
+      properties:
+        typeid:
+          type: string
+        productid:
+          type: string
+        name:
+          type: string
+        image:
+          type: string
+    
+    StockProduct:
+      type: object
+      properties:
+        stockproductid:
+          type: string
+        productid:
+          type: string
+        amountproduct: 
+          type: number
+        price:
+          type: number
+        datenow:
+          type: string
+        dateend:
+          type: string
+        stockid:
+          type: string
+    Ordering:
+      type: object
+      properties:
+        orderingid:
+          type: string
+        customer:
+          type: string
+        datenow:
+          type: string
+        price:
+          type: number
+        status:
+          type: string
+    Orderdetails:
+      type: object
+      properties:
+        orderingid:
+          type: string
+        order:
+          type: object
+          properties:
+            productid:
+              type: string
+            amount:
+              type: number
+    Payment:
+      type: object
+      properties:
+        orderingid:
+          type: string
+        custommer:
+          type: object
+          properties:
+            name:
+              type: string
+            lastname:
+              type: string
+        price:
+          type: number
+        datebuy:
+          type: string
+        bankname:
+          type: string
