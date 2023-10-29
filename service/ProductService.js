@@ -9,16 +9,34 @@ const uri = "mongodb://127.0.0.1:27017/pj";
  * returns inline_response_200_1
  **/
 exports.deletproductById = function(id) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "code" : 0,
-  "message" : "message"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+  return new Promise(async function (resolve, reject) {
+    try {
+      const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+      await client.connect();
+      const objectId = new ObjectId(id); // แปลง ID ที่รับมาเป็น ObjectId
+      const result = await client.db('pj').collection('product').deleteOne({ "_id": objectId });
+
+      await client.close();
+
+      if (result.deletedCount > 0) {
+        const response = {
+          status: 'ok',
+          message: 'Product with ID = ' + id + ' has been deleted',
+          data: null
+        };
+
+        resolve(response);
+      } else {
+        const response = {
+          status: 'not found',
+          message: 'Product with ID = ' + id + ' does not exist'
+        };
+
+        resolve(response);
+      }
+    } catch (error) {
+      reject(error);
     }
   });
 }
