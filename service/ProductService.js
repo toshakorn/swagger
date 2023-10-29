@@ -112,7 +112,9 @@ exports.postproduct = function(body) {
         productid: user.productid,
         name: user.name,
         typeid: user.typeid,
-        dateEnd: user.dateEnd
+        dateEnd: user.dateEnd,
+        value: user.value,
+        price: user.price
       });
 
       await client.close();
